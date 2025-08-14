@@ -8,10 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = $_POST['senha'];
 
     // Verifica se o usuário existe
-    $sql ="SELECT * FROM usuarios WHERE email = :email";
+    $sql ="SELECT * FROM usuario WHERE email = :email";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':email', $email);
-    $result = $stmt->get_result();
     $stmt->execute();
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
