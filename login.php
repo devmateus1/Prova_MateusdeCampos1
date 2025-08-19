@@ -25,9 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Redireciona para a página de alteração de senha
             header('Location: alterar_senha.php');
             exit();
-        
-        header('Location: dashboard.php');
-        exit();
     } else {
         // Redireciona para a pagina principal
         header('Location: principal.php');
