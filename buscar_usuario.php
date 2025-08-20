@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST" && !empty($_POST['busca'])){
         $stmt->bindValue(':busca_nome', "%$busca%", PDO::PARAM_STR);
     }
 } else {
-    $sql = "SELECT * FROM usuario ORDER BY nome ASC";
+    $sql = "SELECT * FROM usuario ORDER BY nome ASC";       
     $stmt = $pdo->prepare($sql);
 }
 
