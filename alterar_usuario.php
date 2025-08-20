@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
 
             <!-- Se o usuário logado for adm, exibir opção de alterar senha -->
             <?php if ($_SESSION['perfil'] === 1):  ?>
-                label for"nova_senha"> Nova Senha:</label>
+                <label for"nova_senha"> Nova Senha:</label>
                 <input type="password" id="nova_senha" name="nova_senha">
                 <?php endif; ?>
 
