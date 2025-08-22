@@ -20,5 +20,14 @@ function validarFuncionario() {
         return false;
     }
 
+    
+    return true;
+}
+function validarNome(){
+    let nome = document.getElementById("nome").value;
+
+    nome = nome.replace(/[0-9]/g, "");
+    document.getElementById("nome").value = nome;
+
     return true;
 }

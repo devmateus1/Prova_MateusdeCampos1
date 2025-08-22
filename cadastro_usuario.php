@@ -66,6 +66,8 @@ $opcoes_menu = $permissoes[$id_perfil];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+    <script src="validacoes.js"></script>
 </head>
 <body>
 <nav>
@@ -88,7 +90,7 @@ $opcoes_menu = $permissoes[$id_perfil];
     <h2> Cadastrar Usuário </h2>
     <form action="cadastro_usuario.php" method="POST">
         <label for="nome"> Nome: </label>
-        <input type="text" name="nome" id="name" required>
+        <input type="text" id="nome" name="nome" required onkeyup="validarNome()">
 
         <label for="email"> Email: </label>
         <input type="email" name="email" id="email" required>
@@ -106,8 +108,10 @@ $opcoes_menu = $permissoes[$id_perfil];
 
         <button type="submit">Salvar</button>
         <button type="reset">Cancelar</button>
+        
     </form>
 
     <a href="principal.php">Voltar</a>
+    
 </body>
 </html>

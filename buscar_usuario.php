@@ -101,7 +101,7 @@ $opcoes_menu = $permissoes[$id_perfil];
     </form>
 
     <?php if(!empty($usuarios)):?>
-       <center> <table class="tabela">
+       <center> <table class="tabela-moderna">
             <tr>
                 <th> ID </th>
                 <th> Nome </th>
