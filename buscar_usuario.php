@@ -72,8 +72,11 @@ $opcoes_menu = $permissoes[$id_perfil];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar usuário</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <nav>
         <ul class="menu">
             <?php foreach($opcoes_menu as $categoria=>$arquivos): ?>
@@ -92,7 +95,7 @@ $opcoes_menu = $permissoes[$id_perfil];
      </nav>
 
 
-    <h2> Lista de Usuarios </h2>
+     <center> <h2> Lista de Usuarios </h2></center> 
     <!-- Formulário para buscar usuário -->
      <form action="buscar_usuario.php" method="POST">
         <label for="busca"> Digite o ID ou Nome (opcional):</label>
@@ -101,7 +104,7 @@ $opcoes_menu = $permissoes[$id_perfil];
     </form>
 
     <?php if(!empty($usuarios)):?>
-       <center> <table class="tabela-moderna">
+       <center>  <table border = "1" class ="table table-striped">
             <tr>
                 <th> ID </th>
                 <th> Nome </th>

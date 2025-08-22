@@ -168,21 +168,4 @@ button {
 button:hover {
     background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
 }
-.tabela-moderna {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  
-  .tabela-moderna th,
-  .tabela-moderna td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
+
