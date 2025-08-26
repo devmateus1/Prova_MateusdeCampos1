@@ -1,10 +1,10 @@
 <?php 
-session_start()
+session_start();
 require_once 'conexao.php';
 
 
 if ($_SESSION['perfil'] != 1) {
-    echo "Acesso Negado"
+    echo "Acesso Negado";
     exit();
 }
 
