@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
      </nav>
      <br>
 
-     <h2> Cadastrar Funcionário </h2>
+     <h2> <center>Cadastrar Funcionário </center></h2>
 
      <form action="cadastrar_funcionario.php" method="POST">
         <label for="nome_funcionario"> Nome do funcionário: </label>
@@ -110,12 +110,13 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
         <label for="cpf"> Cpf: </label>
         <input type="text" name="cpf" id="cpf" required>
 
-        <label for="datanascimento"> Cpf: </label>
+        <label for="datanascimento"> Data de nascimento: </label>
         <input type="text" name="datanascimento" id="datanascimento" required>
 
-        <label for="id_perfil"> Perfil: </label>
+        
        
         <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <br>
         <button type="reset" class="btn btn-primary">Cancelar</button>
         
     </form>
