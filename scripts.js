@@ -65,7 +65,7 @@ function buscarSugestoesFunc() {
             
             // Corrigido: Uso correto de interpolação de strings com template literals
             data.forEach(funcionario => {
-                sugestoesHTML += `<li onclick="selecionarUsuario('${funcionario.id_funcionario}', '${funcionario.nome_funcionario}')">${funcionario.nome_funcionario}</li>`;
+                sugestoesHTML += `<li onclick="selecionarFuncionario('${funcionario.id_funcionario}', '${funcionario.nome_funcionario}')">${funcionario.nome_funcionario}</li>`;
             });
 
             sugestoesHTML += "</ul>";
@@ -76,6 +76,6 @@ function buscarSugestoesFunc() {
 
 // Função para selecionar um usuário da lista de sugestões
 function selecionarFuncionario(id_funcionario, nome_funcionario) {
-    document.getElementById("busca_usuario").value = nome_funcionario;
+    document.getElementById("busca_funcionario").value = nome_funcionario;
     document.getElementById("sugestoes").innerHTML = id_funcionario;
 }

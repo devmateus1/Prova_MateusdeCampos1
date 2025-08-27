@@ -43,11 +43,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $endereco = $_POST['endereco'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
-    $cpf = $_POST['cpf'];
-    $datanascimento = $_POST['datanascimento'];
 
     $sql = "INSERT INTO funcionario (nome_funcionario, endereco, telefone, email ) VALUES (:nome_funcionario, :endereco, :telefone, :email)";
-    $stmt = $pdo->prepare($sqlPerfil);
+    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':nome_funcionario', $nome_funcionario);
     $stmt->bindParam(':endereco', $endereco);
     $stmt->bindParam(':telefone', $telefone);
@@ -92,18 +90,18 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
      <h2> <center>Cadastrar Funcionário </center></h2>
 
-     <form action="cadastrar_funcionario.php" method="POST">
+     <form action="cadastro_funcionario.php" method="POST">
         <label for="nome_funcionario"> Nome do funcionário: </label>
-        <input type="text" id="nome_funcionario" name="nome_funcionario" required onkeyup="validarNome()">
+        <input type="text" id="nome_funcionario" name="nome_funcionario" required onkeyup="nome()">
 
         <label for="endereco"> Endereço: </label>
         <input type="text" name="endereco" id="endereco" required>
 
         <label for="telefone"> Telefone: </label>
-        <input type="text" name="telefone" id="telefone" required>
+        <input type="text" name="telefone" id="telefone" required onkeyup="telefone1()">
 
         <label for="email"> Email: </label>
-        <input type="Email" name="email" id="email" required>
+        <input type="email" name="email" id="email" required>
 
         <button type="submit" class="btn btn-primary">Cadastrar</button>
         <br>

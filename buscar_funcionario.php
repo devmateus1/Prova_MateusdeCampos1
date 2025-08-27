@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST" && !empty($_POST['busca'])){
     } else {
         $sql = "SELECT * FROM funcionario WHERE nome_funcionario like :busca ORDER BY nome_funcionario ASC";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':busca_nome', "$busca%", PDO::PARAM_STR);
+        $stmt->bindValue(':busca', "%$busca%", PDO::PARAM_STR);
     }
 } else {
     $sql = "SELECT * FROM funcionario ORDER BY nome_funcionario ASC";       
@@ -132,6 +132,6 @@ $opcoes_menu = $permissoes[$id_perfil];
         <p>Nenhum funcionario encontrado.</p>
     <?php endif; ?> 
     
-    <a href="principal.php"> Voltar </a>
+    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
 </body>
 </html>

@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':busca', $busca, PDO::PARAM_INT);
     } else {
-        $sql = "SELECT * FROM funcionario WHERE nome_funcionario like :busca_nome";
+        $sql = "SELECT * FROM funcionario WHERE nome_funcionario like :busca";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':busca_nome', "%$busca%", PDO::PARAM_STR);
+        $stmt->bindValue(':busca', "%$busca%", PDO::PARAM_STR);
     }
     $stmt->execute();
     $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -73,7 +73,7 @@ $opcoes_menu = $permissoes[$id_perfil];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Usuário</title>
+    <title>Alterar Funcionário</title>
     <link rel="stylesheet" href="styles.css">
     
     <script src="scripts.js"></script>
@@ -112,6 +112,9 @@ $opcoes_menu = $permissoes[$id_perfil];
             <label for="nome_funcionario"> Nome:</label>
             <input type="text" id="nome_funcionario" name="nome_funcionario" value="<?=htmlspecialchars($funcionario['nome_funcionario'])?>" required>
 
+            <label for="endereco"> Endereço:</label>
+            <input type="text" id="endereco" name="endereco" value="<?=htmlspecialchars($funcionario['endereco'])?>" required>
+
             <label for="telefone"> Telefone:</label>
             <input type="text" id="telefone" name="telefone" value="<?=htmlspecialchars($funcionario['telefone'])?>" required>
 
@@ -137,6 +140,6 @@ $opcoes_menu = $permissoes[$id_perfil];
                 <button type="reset"> Cancelar</button>
         </form>     
         <?php endif; ?>
-         <a href="principal.php"> Voltar </a>       
+     <button  class="btn btn-primary"> <center> <a href="principal.php"> Voltar</a></center>  </button>
 </body>
 </html>

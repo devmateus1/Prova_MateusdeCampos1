@@ -10,36 +10,34 @@ if ($_SESSION['perfil']!= 1) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $id_funcionario = $_POST['id_funcionario'];
-    $nome = $_POST['nome_funcionario'];
+    $nome_funcionario = $_POST['nome_funcionario'];
+    $endereco = $_POST['endereco'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
-    $id_perfil = isset($_POST['id_perfil']) ? $_POST['id_perfil'] : null;
-    if ($id_perfil === null) {
-        echo "<script>alert('Erro: Perfil não foi informado.');window.location.href='alterar_funcionario.php?id=$id_perfil';</script>";
-        exit();
-    }
-    $nova_senha = !empty($_POST['nova_senha']) ? password_hash($_POST['nova_senha'], PASSWORD_DEFAULT) : null;
+    $id_perfil = $_POST['id_perfil'];
+    $nova_senha = !empty($_POST['senha']) ? password_hash($_POST['nova_senha'], PASSWORD_DEFAULT) : null;
 
 // Atualiza os dados do usuario
 if ($nova_senha){
-    $sql = "UPDATE funcionario SET nome_funcionario = :nome_funcionario, email = :email, telefone = :telefone, id_perfil = :id_perfil, senha = :senha WHERE id_funcionario = :id_funcionario";
+    $sql = "UPDATE funcionario set nome_funcionario = :nome_funcionario, endereco = :endereco, telefone = :telefone, email = :email, id_perfil = :id_perfil, senha = :senha WHERE id_funcionario = :id_funcionario";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':senha', $nova_senha);
 }else {
-    $sql = "UPDATE funcionario set nome_funcionario = :nome_funcionario, email = :email, telefone = :telefone, id_perfil = :id_perfil WHERE id_funcionario = :id_funcionario";
+    $sql = "UPDATE funcionario set nome_funcionario = :nome_funcionario, endereco = :endereco, telefone = :telefone, email = :email, id_perfil = :id_perfil WHERE id_funcionario = :id_funcionario";
     $stmt = $pdo->prepare($sql);
 }
 
-$stmt->bindParam(':nome_funcionario', $nome);
+$stmt->bindParam(':nome_funcionario', $nome_funcionario);
+$stmt->bindParam(':endereco', $endereco);
 $stmt->bindParam(':telefone', $telefone);
 $stmt->bindParam(':email', $email);
 $stmt->bindParam(':id_perfil', $id_perfil);
 $stmt->bindParam(':id_funcionario', $id_funcionario);
 
 if ($stmt->execute()){
-    echo"<script>alert('Funcioário atualizado com sucesso!');window.location.href='buscar_usuario.php';</script>";
+    echo"<script>alert('Usuário atualizado com sucesso!');window.location.href='buscar_funcionario.php';</script>";
 }else {
-    echo"<script>alert('Erro ao atualizar o Funcionários.');window.location.href='alterar_funcionario.php?id=$funcionario';</script>";
+    echo"<script>alert('Erro ao atualizar o usuário.');window.location.href='alterar_funcionario.php?id=$funcionario';</script>";
 }
 }
 ?>
