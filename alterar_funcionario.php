@@ -3,7 +3,7 @@ session_start();
 require_once 'conexao.php';
 
 
-if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] != 1) {
+if ($_SESSION['perfil']!= 1) {
     echo"<script>alert('Acesso negado.');window.location.href='principal.php';</script>";
     exit();
 }
@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':busca', $busca, PDO::PARAM_INT);
     } else {
-        $sql = "SELECT * FROM funcionario WHERE nome_funcionario like :busca";
+        $sql = "SELECT * FROM funcionario WHERE nome_funcionario like :busca_nome";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':busca', "%$busca%", PDO::PARAM_STR);
+        $stmt->bindValue(':busca_nome', "%$busca%", PDO::PARAM_STR);
     }
     $stmt->execute();
     $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -37,14 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
 }
 }
 
-$id_perfil = isset($_SESSION['perfil']) ? $_SESSION['perfil'] : null;
+$id_perfil = $_SESSION['perfil'];
 $sqlPerfil = "SELECT nome_perfil FROM perfil WHERE id_perfil = :id_perfil";
 $stmtPerfil = $pdo->prepare($sqlPerfil);
 $stmtPerfil->bindParam(':id_perfil', $id_perfil);
 $stmtPerfil->execute();
 $perfil = $stmtPerfil->fetch(PDO::FETCH_ASSOC);
 $nome_perfil = $perfil['nome_perfil'];
-
 
 $permissoes = [
     1=> ["Cadastrar"=>["cadastro_usuario.php", "cadastro_perfil.php", "cadastro_cliente.php", "cadastro_fornecedor.php", "cadastro_produto.php", "cadastro_funcionario.php"],
@@ -140,6 +139,6 @@ $opcoes_menu = $permissoes[$id_perfil];
                 <button type="reset"> Cancelar</button>
         </form>     
         <?php endif; ?>
-     <button  class="btn btn-primary"> <center> <a href="principal.php"> Voltar</a></center>  </button>
+        <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
 </body>
 </html>

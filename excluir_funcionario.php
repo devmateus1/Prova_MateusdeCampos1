@@ -123,6 +123,6 @@ $opcoes_menu = $permissoes[$id_perfil];
             <?php else: ?>
             <p> Nenhum usuário encontrado.</p>
     <?php endif; ?>
-    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center>  
+    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
 </body>
 </html>

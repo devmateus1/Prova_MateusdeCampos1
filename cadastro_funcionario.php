@@ -109,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
         
     </form>
 
-   <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
+    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
     
 </body>
 </html>
