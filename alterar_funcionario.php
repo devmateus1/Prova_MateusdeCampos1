@@ -2,22 +2,22 @@
 session_start();
 require_once 'conexao.php';
 
-// Verifica se o usuário tem permissão de adm 
-if ($_SESSION['perfil']!= 1) {
+
+if (!isset($_SESSION['perfil']) || $_SESSION['perfil'] != 1) {
     echo"<script>alert('Acesso negado.');window.location.href='principal.php';</script>";
     exit();
 }
 
-// Inicializa as variaveis 
+
 $funcionario = null;
 
-// Se o formulário for enviado, busca o usuário pelo id ou nome.
+
 if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
 
    if (!empty($_POST['busca_funcionario'])){
     $busca = trim($_POST['busca_funcionario']);
 
-    // Verifica se a busca é um número (id) ou um nome
+
     if (is_numeric($busca)) {
         $sql = "SELECT * FROM funcionario WHERE id_funcionario = :busca";
         $stmt = $pdo->prepare($sql);
@@ -30,14 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST"){
     $stmt->execute();
     $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Se o usuário não for encontrado, exibe um alerta 
+    
     if(!$funcionario) {
         echo "<script>alert('Usuário não encontrado.');</script>";
     }
 }
 }
-// Obtendo o nome do perfil do usuario logado 
-$id_perfil = $_SESSION['perfil'];
+
+$id_perfil = isset($_SESSION['perfil']) ? $_SESSION['perfil'] : null;
 $sqlPerfil = "SELECT nome_perfil FROM perfil WHERE id_perfil = :id_perfil";
 $stmtPerfil = $pdo->prepare($sqlPerfil);
 $stmtPerfil->bindParam(':id_perfil', $id_perfil);
@@ -75,7 +75,7 @@ $opcoes_menu = $permissoes[$id_perfil];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar Usuário</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Certifique-se que o Javascript esta sendo carregado corretamente -->
+    
     <script src="scripts.js"></script>
 </head>
 <body>
@@ -96,7 +96,7 @@ $opcoes_menu = $permissoes[$id_perfil];
         </ul>
      </nav>
     <h2> Lista de Funcionarios </h2>
-        <!-- Formulário para buscar usuário -->
+      
         <form action="alterar_funcionario.php" method="POST">
             <label for="busca_funcionario"> Digite o ID ou Nome do funcionário:</label>
             <input type="text" id="busca_funcionario" name="busca_funcionario" required onkeyup="buscarSugestoesFunc()">
@@ -119,7 +119,15 @@ $opcoes_menu = $permissoes[$id_perfil];
             <label for="email"> Email:</label>
             <input type="text" id="email" name="email" value="<?=htmlspecialchars($funcionario['email'])?>" required>
 
-            <!-- Se o usuário logado for adm, exibir opção de alterar senha -->
+            <label for="id_perfil"> Perfil:</label>
+            <select name="id_perfil" id="id_perfil">
+                <option value="1" <?=($funcionario['id_perfil'] == 1 ? 'selected': '' )?>> Administrador </option>
+                <option value="2" <?=($funcionario['id_perfil'] == 2 ? 'selected': '' )?>> Secretária </option>
+                <option value="3" <?=($funcionario['id_perfil'] == 3 ? 'selected': '' )?>> Almoxarife </option>
+                <option value="4" <?=($funcionario['id_perfil'] == 4 ? 'selected': '' )?>> Cliente </option>
+            </select>
+
+          
             <?php if ($_SESSION['perfil'] === 1):  ?>
                 <label for="nova_senha"> Nova Senha:</label>
                 <input type="password" id="nova_senha" name="nova_senha">
