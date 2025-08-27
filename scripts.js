@@ -47,3 +47,35 @@ function selecionarUsuario(id, nome) {
     document.getElementById("busca_usuario").value = nome;
     document.getElementById("sugestoes").innerHTML = "";
 }
+
+function buscarSugestoesFunc() {
+    let busca = document.getElementById("busca_funcionario").value;
+    
+    // Se o usuário digitou menos de 2 caracteres, limpa as sugestões
+    if (busca.length < 2) {
+        document.getElementById("sugestoes").innerHTML = "";
+        return;
+    }
+
+    // Faz uma requisição para buscar_sugestoes.php passando o termo de busca
+    fetch("buscar_sugestoes.php?busca=" + encodeURIComponent(busca))
+        .then(response => response.json())
+        .then(data => {
+            let sugestoesHTML = "<ul>";
+            
+            // Corrigido: Uso correto de interpolação de strings com template literals
+            data.forEach(funcionario => {
+                sugestoesHTML += `<li onclick="selecionarUsuario('${funcionario.id_funcionario}', '${funcionario.nome_funcionario}')">${funcionario.nome_funcionario}</li>`;
+            });
+
+            sugestoesHTML += "</ul>";
+            document.getElementById("sugestoes").innerHTML = sugestoesHTML;
+        })
+        .catch(error => console.error("Erro ao buscar sugestões:", error)); // Adicionado tratamento de erro
+}
+
+// Função para selecionar um usuário da lista de sugestões
+function selecionarFuncionario(id_funcionario, nome_funcionario) {
+    document.getElementById("busca_usuario").value = nome_funcionario;
+    document.getElementById("sugestoes").innerHTML = id_funcionario;
+}

@@ -1,13 +1,38 @@
-<?php 
+<?php
 session_start();
 require_once 'conexao.php';
 
-
-if ($_SESSION['perfil'] != 1) {
-    echo "Acesso Negado";
+// Verifica se o usuário tem permissão de adm 
+if ($_SESSION['perfil']!= 1) {
+    echo"<script>alert('Acesso negado.');window.location.href='principal.php';</script>";
     exit();
 }
 
+// Inicializa as variaveis 
+$funcionario = null;
+
+// Busca todos os usuários cadastrados em ordem alfabética
+$sql = "SELECT * FROM funcionario ORDER BY nome_funcionario ASC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$funcionarios = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+// Se um id for passado via GET, excluir o usuário 
+if (isset($_GET['id_funcionario']) && is_numeric($_GET['id_funcionario'])){
+    $id_funcionario = $_GET['id_funcionario'];
+    
+    // excluir o usuario do banco de dados 
+    $sql = "DELETE FROM funcionario WHERE id_funcionario = :id_funcionario";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_funcionario', $id_funcionario, PDO::PARAM_INT);
+
+    if ($stmt->execute()){
+        echo "<script>alert('Usuário excluído com sucesso!');window.location.href='excluir_funcionario.php';</script>";
+    } else {
+        echo "<script>alert('Erro ao excluir usuário.');</script>";
+    }
+}
+// Obtendo o nome do perfil do usuario logado 
 $id_perfil = $_SESSION['perfil'];
 $sqlPerfil = "SELECT nome_perfil FROM perfil WHERE id_perfil = :id_perfil";
 $stmtPerfil = $pdo->prepare($sqlPerfil);
@@ -37,28 +62,6 @@ $permissoes = [
 ];
 
 $opcoes_menu = $permissoes[$id_perfil]; 
-
-if ($_SERVER["REQUEST_METHOD"]=="POST"){
-    $nome_funcionario = $_POST['nome_funcionario'];
-    $endereco = $_POST['endereco'];
-    $telefone = $_POST['telefone'];
-    $email = $_POST['email'];
-    $cpf = $_POST['cpf'];
-    $datanascimento = $_POST['datanascimento'];
-
-    $sql = "INSERT INTO funcionario (nome_funcionario, endereco, telefone, email ) VALUES (:nome_funcionario, :endereco, :telefone, :email)";
-    $stmt = $pdo->prepare($sqlPerfil);
-    $stmt->bindParam(':nome_funcionario', $nome_funcionario);
-    $stmt->bindParam(':endereco', $endereco);
-    $stmt->bindParam(':telefone', $telefone);
-    $stmt->bindParam(':email', $email);
-
-    if ( $stmt->execute()){
-        echo "<script>alert('Funcionário cadastrado com sucesso!');</script>";
-    }else {
-        echo "<script>alert('Erro ao cadastrar Funcionário.');</script>";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -66,9 +69,10 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Funcionario</title>
+    <title>Excluir usuário</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -88,47 +92,37 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             <?php endforeach; ?>
         </ul>
      </nav>
-     <br>
 
-     <h2> <center>Cadastrar Funcionário </center></h2>
-
-     <form action="cadastrar_funcionario.php" method="POST">
-        <label for="nome_funcionario"> Nome do funcionário: </label>
-        <input type="text" id="nome_funcionario" name="nome_funcionario" required onkeyup="validarNome()">
-
-        <label for="endereco"> Endereço: </label>
-        <input type="text" name="endereco" id="endereco" required>
-
-        <label for="telefone"> Telefone: </label>
-        <input type="text" name="telefone" id="telefone" required>
-
-        <label for="email"> Email: </label>
-        <input type="Email" name="email" id="email" required>
-
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-        <br>
-        <button type="reset" class="btn btn-primary">Cancelar</button>
+    <center><h2> Excluir Funcionário</h2> </center>
+    <?php if(!empty($funcionarios)):?>
+        <table border = "1" class ="table table-striped">
+            <tr> 
+            <th> ID </th>
+                <th> Nome </th>
+                <th> Telefone </th>
+                <th> Email </th>
+                <th> Ações </th>
+            </tr>
         
-    </form>
-
-   <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
-    
+            <?php foreach ($funcionarios as $funcionario): ?>
+                <tr>
+                <td> <?=htmlspecialchars($funcionario['id_funcionario']) ?></td>
+                    <td> <?=htmlspecialchars($funcionario['nome_funcionario']) ?></td>
+                    <td> <?=htmlspecialchars($funcionario['telefone']) ?></td>
+                    <td> <?=htmlspecialchars($funcionario['email']) ?></td>
+                  
+                
+                    <td>
+                        <a href="excluir_funcionario.php?id_funcionario=<?= htmlspecialchars($funcionario['id_funcionario']) ?>"onclick= "return confirm('Tem certeza que deseja excluir este usuário?')">
+                            Excluir 
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>     
+        </table>
+            <?php else: ?>
+            <p> Nenhum usuário encontrado.</p>
+    <?php endif; ?>
+    <a href="principal.php">Voltar</a>      
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
