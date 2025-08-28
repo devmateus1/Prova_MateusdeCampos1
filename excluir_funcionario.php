@@ -113,7 +113,7 @@ $opcoes_menu = $permissoes[$id_perfil];
                   
                 
                     <td>
-                        <a href="excluir_funcionario.php?id_funcionario=<?= htmlspecialchars($funcionario['id_funcionario']) ?>"onclick= "return confirm('Tem certeza que deseja excluir este usuário?')">
+                        <a href="excluir_funcionario.php?id_funcionario=<?= htmlspecialchars($funcionario['id_funcionario']) ?>"onclick= "return confirm('Tem certeza que deseja excluir este usuário?')" class="btn btn-primary">
                             Excluir 
                         </a>
                     </td>

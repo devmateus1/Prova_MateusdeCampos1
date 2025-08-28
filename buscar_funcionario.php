@@ -108,6 +108,7 @@ $opcoes_menu = $permissoes[$id_perfil];
             <tr>
                 <th> ID </th>
                 <th> Nome </th>
+                <th> Endereço </th>
                 <th> Telefone </th>
                 <th> Email </th>
                 <th> Ações </th>
@@ -117,13 +118,14 @@ $opcoes_menu = $permissoes[$id_perfil];
                 <tr>
                     <td> <?=htmlspecialchars($funcionario['id_funcionario']) ?></td>
                     <td> <?=htmlspecialchars($funcionario['nome_funcionario']) ?></td>
+                    <td> <?=htmlspecialchars($funcionario['endereco']) ?></td>
                     <td> <?=htmlspecialchars($funcionario['telefone']) ?></td>
                     <td> <?=htmlspecialchars($funcionario['email']) ?></td>
                     <td>
-                        <a href="alterar_funcionario.php?id= <?=htmlspecialchars($funcionario['id_funcionario'])?>"> Alterar</a>
+                        <a href="alterar_funcionario.php?id= <?=htmlspecialchars($funcionario['id_funcionario'])?>" class="btn btn-primary"> Alterar</a>
 
                         <a href="excluir_funcionario.php?id= <?=htmlspecialchars($funcionario['id_funcionario'])?>"onclick="return confirm
-                        ('Tem certeza que deseja excluir este funcionario?')"> Excluir</a>
+                        ('Tem certeza que deseja excluir este funcionario?')" class="btn btn-primary"> Excluir</a>
                     </td>
                 </tr>
              <?php endforeach; ?>   

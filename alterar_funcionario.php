@@ -101,7 +101,7 @@ $opcoes_menu = $permissoes[$id_perfil];
             <input type="text" id="busca_funcionario" name="busca_funcionario" required onkeyup="buscarSugestoesFunc()">
 
             <div id ="sugestoes"></div>
-            <button type="submit">Buscar</button> 
+            <button type="submit" class="btn btn-primary"s>Buscar</button> 
          </form>
 
     <?php if($funcionario): ?>
@@ -117,26 +117,16 @@ $opcoes_menu = $permissoes[$id_perfil];
             <label for="telefone"> Telefone:</label>
             <input type="text" id="telefone" name="telefone" value="<?=htmlspecialchars($funcionario['telefone'])?>" required>
 
-
             <label for="email"> Email:</label>
             <input type="text" id="email" name="email" value="<?=htmlspecialchars($funcionario['email'])?>" required>
-
-            <label for="id_perfil"> Perfil:</label>
-            <select name="id_perfil" id="id_perfil">
-                <option value="1" <?=($funcionario['id_perfil'] == 1 ? 'selected': '' )?>> Administrador </option>
-                <option value="2" <?=($funcionario['id_perfil'] == 2 ? 'selected': '' )?>> Secretária </option>
-                <option value="3" <?=($funcionario['id_perfil'] == 3 ? 'selected': '' )?>> Almoxarife </option>
-                <option value="4" <?=($funcionario['id_perfil'] == 4 ? 'selected': '' )?>> Cliente </option>
-            </select>
-
           
             <?php if ($_SESSION['perfil'] === 1):  ?>
                 <label for="nova_senha"> Nova Senha:</label>
                 <input type="password" id="nova_senha" name="nova_senha">
                 <?php endif; ?>
 
-                <button type="submit"> Alterar</button>
-                <button type="reset"> Cancelar</button>
+                <button type="submit" class="btn btn-primary" > Alterar</button>
+                <button type="reset" class="btn btn-primary"> Cancelar</button>
         </form>     
         <?php endif; ?>
         <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
