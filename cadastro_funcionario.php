@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Funcionario</title>
     <link rel="stylesheet" href="styles.css">
-    
+    <script src="mascaras.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
@@ -93,13 +93,13 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
      <form action="cadastro_funcionario.php" method="POST">
         <label for="nome_funcionario"> Nome do funcionário: </label>
-        <input type="text" id="nome_funcionario" name="nome_funcionario" required onkeyup="nome()">
+        <input type="text" id="nome_funcionario" name="nome_funcionario" required onkeypress="mascara(this.nome)">
 
         <label for="endereco"> Endereço: </label>
         <input type="text" name="endereco" id="endereco" placeholder="**/**/****" required>
 
         <label for="telefone"> Telefone: </label>
-        <input type="text" name="telefone" id="telefone" required onkeyup="telefone1()">
+        <input type="text" name="telefone" id="telefone" required onkeypress="mascara(this.telefone1)" maxlenght="15">
 
         <label for="email"> Email: </label>
         <input type="email" name="email" id="email" required>
