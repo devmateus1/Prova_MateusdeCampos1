@@ -129,10 +129,10 @@ $opcoes_menu = $permissoes[$id_perfil];
                 <input type="password" id="nova_senha" name="nova_senha">
                 <?php endif; ?>
 
-                <button type="submit"> Alterar</button>
-                <button type="reset"> Cancelar</button>
+                <button type="submit" class="btn btn-primary"> Alterar</button>
+                <button type="reset" class="btn btn-primary"> Cancelar</button>
         </form>     
         <?php endif; ?>
-         <a href="principal.php"> Voltar </a>       
+        <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center>    
 </body>
 </html>

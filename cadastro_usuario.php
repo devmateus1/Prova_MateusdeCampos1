@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    $id_perfil = $_POST['id_perfil'];
     
     $sql = "INSERT INTO usuario (nome, email, senha, id_perfil) VALUES (:nome, :email, :senha, :id_perfil)";
-    $stmt = $pdo->prepare($sqlPerfil);
+    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':senha', $senha);
@@ -90,7 +90,7 @@ $opcoes_menu = $permissoes[$id_perfil];
     <h2> Cadastrar Usuário </h2>
     <form action="cadastro_usuario.php" method="POST">
         <label for="nome"> Nome: </label>
-        <input type="text" id="nome" name="nome" required onkeyup="validarNome()">
+        <input type="text" id="nome" name="nome" required onkeypress="mascara(this.nome)">
 
         <label for="email"> Email: </label>
         <input type="email" name="email" id="email" required>
@@ -111,7 +111,7 @@ $opcoes_menu = $permissoes[$id_perfil];
         
     </form>
 
-    <a href="principal.php">Voltar</a>
+    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
     
 </body>
 </html>

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] ==  "POST" && !empty($_POST['busca'])){
     } else {
         $sql = "SELECT * FROM usuario WHERE nome like :busca ORDER BY nome ASC";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':busca_nome', "%$busca%", PDO::PARAM_STR);
+        $stmt->bindValue(':busca', "$busca%", PDO::PARAM_STR);
     }
 } else {
     $sql = "SELECT * FROM usuario ORDER BY nome ASC";       
@@ -120,10 +120,10 @@ $opcoes_menu = $permissoes[$id_perfil];
                     <td> <?=htmlspecialchars($usuario['email']) ?></td>
                     <td> <?=htmlspecialchars($usuario['id_perfil']) ?></td>
                     <td>
-                        <a href="alterar_usuario.php?id= <?=htmlspecialchars($usuario['id_usuario'])?>"> Alterar</a>
+                        <a href="alterar_usuario.php?id= <?=htmlspecialchars($usuario['id_usuario'])?>" class="btn btn-primary"> Alterar</a>
 
                         <a href="excluir_usuario.php?id= <?=htmlspecialchars($usuario['id_usuario'])?>"onclick="return confirm
-                        ('Tem certeza que deseja excluir este usuario?')"> Excluir</a>
+                        ('Tem certeza que deseja excluir este usuario?')" class="btn btn-primary"> Excluir</a>
                     </td>
                 </tr>
              <?php endforeach; ?>   
@@ -132,6 +132,6 @@ $opcoes_menu = $permissoes[$id_perfil];
         <p>Nenhum usuário encontrado.</p>
     <?php endif; ?> 
     
-    <a href="principal.php"> Voltar </a>
+    <center> <a href="principal.php" class="btn btn-primary">Voltar</a></center> 
 </body>
 </html>
